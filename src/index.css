@@ -1,0 +1,199 @@
+@import 'tailwindcss';
+@import 'leaflet/dist/leaflet.css';
+
+.leaflet-container {
+  background: #0a1628;
+  font-family: inherit;
+}
+
+.plane-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.plane-float {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: skyroute-plane-float 2.8s ease-in-out infinite;
+}
+
+.plane-marker-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.65));
+  transition: transform 0.4s ease-out;
+}
+
+@keyframes skyroute-plane-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Airport name chips (zoom-dependent) */
+.leaflet-marker-icon.airport-label-outer {
+  border: none !important;
+  background: transparent !important;
+}
+
+.airport-label-wrap {
+  transform: translate(-50%, calc(-100% - 12px));
+  pointer-events: none;
+  animation: skyroute-label-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes skyroute-label-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-100% - 6px)) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, calc(-100% - 12px)) scale(1);
+  }
+}
+
+.airport-label-chip {
+  white-space: nowrap;
+  background: rgba(15, 23, 42, 0.94);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 8px;
+  padding: 3px 10px 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: 0.04em;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+}
+
+.airport-label-chip--full {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding: 6px 12px 7px;
+  min-width: 120px;
+}
+
+.airport-label-iata {
+  font-size: 12px;
+  color: #7dd3fc;
+}
+
+.airport-label-city {
+  font-size: 11px;
+  font-weight: 500;
+  color: #f1f5f9;
+  letter-spacing: 0;
+}
+
+.airport-label-cc {
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* Tooltip */
+.leaflet-tooltip.skyroute-airport-tooltip {
+  background: rgba(15, 23, 42, 0.97) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  border-radius: 10px !important;
+  color: #e2e8f0 !important;
+  padding: 10px 12px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+  animation: skyroute-tip-in 0.25s ease-out both;
+}
+
+.leaflet-tooltip.skyroute-airport-tooltip::before {
+  border-top-color: rgba(15, 23, 42, 0.97) !important;
+}
+
+@keyframes skyroute-tip-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skyroute-leaflet.skyroute-map-ready {
+  animation: skyroute-map-fade 0.6s ease-out both;
+}
+
+@keyframes skyroute-map-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Dashboard cards */
+@keyframes skyroute-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skyroute-fade-up {
+  animation: skyroute-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.skyroute-stagger-1 {
+  animation-delay: 0.05s;
+}
+.skyroute-stagger-2 {
+  animation-delay: 0.1s;
+}
+.skyroute-stagger-3 {
+  animation-delay: 0.15s;
+}
+.skyroute-stagger-4 {
+  animation-delay: 0.2s;
+}
+.skyroute-stagger-5 {
+  animation-delay: 0.25s;
+}
+
+@theme {
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --color-sky-950: #0a1628;
+  --color-sky-900: #0f2744;
+  --color-accent: #38bdf8;
+  --color-accent2: #a78bfa;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: radial-gradient(1200px 600px at 10% -10%, rgba(56, 189, 248, 0.15), transparent),
+    radial-gradient(900px 500px at 90% 0%, rgba(167, 139, 250, 0.12), transparent),
+    linear-gradient(180deg, #070b14 0%, #0a1628 40%, #070b14 100%);
+  color: #e5e7eb;
+}
